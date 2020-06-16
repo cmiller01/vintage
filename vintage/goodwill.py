@@ -39,7 +39,7 @@ def get_receiver_url(page: int, days=30) -> str:
     return f"https://www.shopgoodwill.com/Listings?t=&sg=&c=401&s=&lp=0&hp=999999&sbn=False&spo=False&snpo=False&socs=False&sd=False&sca=True&cadb={days}&scs=False&sis=False&col=4&p={page}&ps=40&desc=true&ss=0&UseBuyerPrefs=true"
 
 
-def get_receivers():
+def get_receivers(days=30):
     items = []
     page = 1
     while True:
@@ -55,9 +55,8 @@ def get_receivers():
     return items
 
 
-def write_receivers():
-    items = get_receivers()
-    with open("goodwill_receivers.csv", "w") as csvfile:
+def write_receivers(items, filename='receivers.csv'):
+    with open(filename, "w") as csvfile:
         fieldnames = ["title", "item_number", "price", "end_date", "bids"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
